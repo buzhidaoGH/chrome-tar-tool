@@ -1,0 +1,21 @@
+{
+  "name": "chrome-tar-tool",
+  "version": "0.0.1",
+  "description": "chrome扩展开发，选中翻译文本",
+  "scripts": {
+    "test": "echo \"Error: no test specified\"",
+    "build": "gulp -LL -f gulp/index.js build --env=pro",
+    "dev": "gulp -LL -f gulp/index.js build"
+  },
+  "author": "BuZhiDaoGH",
+  "license": "GPL",
+  "dependencies": {},
+  "devDependencies": {
+    "gulp": "^4.0.2",
+    "gulp-csso": "^4.0.1",
+    "gulp-htmlmin": "^5.0.1",
+    "gulp-if": "^3.0.0",
+    "gulp-uglify-es": "^3.0.0",
+    "minimist": "^1.2.6"
+  }
+}

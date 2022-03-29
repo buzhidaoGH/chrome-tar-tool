@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+  <meta charset="UTF-8">
+  <style type="text/css">
+    .show {
+      display: block !important;
+    }
+
+    #translateBtn {
+      display: none;
+      position: absolute;
+      z-index: 9999;
+      width: 22px;
+      height: 22px;
+      background-size: cover;
+      background: url("/assets/icons/tar_logo.png") no-repeat center;
+      left: 0;
+      top: 0;
+      border-radius: 5px;
+      border: 1px solid transparent;
+      outline: none;
+    }
+
+    #panelContent {
+      display: none;
+      position: fixed;
+      z-index: 9999;
+      width: 270px;
+      border: 1px #D7DBDD solid;
+      border-radius: 10px;
+      box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+      overflow: hidden;
+      left: 0;
+      top: 0;
+    }
+
+    #panelTool {
+      border-bottom: 1px #D7DBDD solid;
+      width: 100%;
+      height: 36px;
+      background-color: #0099FF;
+    }
+
+    #panelTool > div:hover {
+      background-color: #D7DBDD;
+      border-radius: 4px;
+    }
+
+    #panelShow {
+      border-radius: 10px;
+      background-color: #E8F4F6;
+      width: 92%;
+      margin: 0 auto;
+      font-size: 15px;
+      font-family: 'Constantia', serif;
+      padding-top: 8px;
+      padding-left: 10px;
+    }
+
+    #panelShow p {
+      margin-top: 8px;
+      margin-bottom: 0;
+    }
+
+    #panelShow p:hover .read-aloud {
+      display: inline-block;
+    }
+
+    .read-aloud:hover {
+      background-color: #D7DBDD;
+    }
+
+    .read-aloud {
+      display: none;
+      cursor: pointer;
+      position: relative;
+      left: 1px;
+      top: 1px;
+      width: 13px;
+      height: 13px;
+      background: url('data:image/svg+xml,<svg class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2805" width="16" height="16"><path d="M576 701.6v-65.6c55.2-14.4 96-64 96-124s-40.8-109.6-96-124v-65.6C666.4 337.6 736 416.8 736 512s-69.6 174.4-160 189.6z m0-568v64.8c145.6 29.6 256 159.2 256 313.6 0 154.4-110.4 284-256 313.6v64.8c181.6-30.4 320-188 320-378.4S757.6 164 576 133.6zM256 384H128v256h128l256 256V128L256 384z" p-id="2806"></path></svg>');
+    }
+
+    #popLayer {
+      border-radius: 5px;
+      overflow: hidden;
+      display: none;
+      position: absolute;
+      left: 20%;
+      top: 83%;
+      width: 170px;
+      height: 25px;
+      line-height: 25px;
+      text-align: center;
+      background-color: rgba(215,219,221,0.5);
+      font-size: 16px;
+      font-family: 'Constantia', serif;
+    }
+  </style>
+</head>
+<body>
+  <div id="root">
+    <input type="button" id="translateBtn" />
+    <div id="panelContent">
+      <div id="panelTool">
+        <p style="height:36px;line-height:36px;width: 80px;
+        overflow:hidden;font-weight: bold;font-size: 16px;margin: 0 0 0 16px;float: left;color: #FFFFFF">
+          翻译结果</p>
+        <div style="float: right;height: 24px;width: 24px;margin: 6px 10px 0 0;display: inline-block;">
+          <svg class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+               width="24" height="24">
+            <path
+                d="M641.447722 511.998977l299.029514-299.033607c22.477944-22.476921 26.320459-55.098899 8.580422-72.838935l-65.198931-65.197908c-17.740036-17.740036-50.316989-13.853519-72.838935 8.624425L512.011768 382.570185 212.975091 83.551928c-22.476921-22.499433-55.098899-26.365484-72.838935-8.601912l-65.197908 65.197908c-17.740036 17.718547-13.897521 50.339502 8.624425 72.817446l299.026444 299.031561L83.562673 811.031561c-22.477944 22.477944-26.365484 55.076386-8.624425 72.817446l65.197908 65.209164c17.740036 17.74106 50.362015 13.897521 72.838935-8.580422l299.04384-299.048957 298.999838 299.004955c22.521946 22.521946 55.098899 26.365484 72.838935 8.624425l65.198931-65.209164c17.740036-17.74106 13.897521-50.339502-8.580422-72.839959L641.447722 511.998977z"
+                data-spm-anchor-id="a313x.7781069.0.i1" class="selected" fill="#666699"></path>
+          </svg>
+        </div>
+      </div>
+      <div style="width: 100%;background-color: #FFFFCC;height: auto;padding-top: 6px;padding-bottom: 6px">
+        <div id="panelShow">
+          <p>原文：<span title="点击复制" style="cursor: pointer;" id="sourceLanguage">空</span>
+            <b class="read-aloud"></b>
+          </p>
+          <p>拼音：<span id="alphabetic">空</span>
+          </p>
+          <p>译文：<span  title="点击复制" style="cursor: pointer;" id="targetLanguage">空</span>
+            <b class="read-aloud"></b>
+          </p>
+          <p>关联结果：<span id="peripheralResults">无</span>
+          </p><br />
+        </div>
+      </div>
+      <div id="popLayer">复&emsp;制&emsp;成&emsp;功&emsp;！</div>
+    </div>
+  </div>
+</body>
+</html>

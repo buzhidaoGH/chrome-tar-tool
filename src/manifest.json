@@ -1,0 +1,58 @@
+{
+  // -------------基础信息-------------
+  "name": "TAR Tool",
+  "version": "0.0.1",
+  "description": "对文字的进行快捷翻译或注明拼音，并支持在线朗读！",
+  "manifest_version": 3,
+  "icons": {
+    "32": "/assets/icons/tar_logo.png",
+    "48": "/assets/icons/tar_logo_48.png",
+    "128": "/assets/icons/tar_logo_128.png"
+  },
+  // -------------基础配置-------------
+  "background": {
+    "service_worker": "/background/background.js",
+    "type": "module"
+  },
+  "action": {
+    "default_title": "译诵",
+    "default_icon": {
+      "32": "/assets/icons/tar_logo.png"
+    },
+    "default_popup": "/popup/index.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["http://*/*", "https://*/*"],
+      "js": [
+        "/assets/lib/jquery-3.6.0.min.js",
+        "/assets/lib/pinyin_dict_polyphone.js",
+        "/assets/lib/pinyin_dict_withtone.js",
+        "/assets/lib/pinyinUtil.js",
+        "/scripts/content.js"
+      ],
+      "run_at": "document_end"
+    }
+  ],
+  // -------------扩展访问权限申请-------------
+  "permissions": [
+    "storage", // 插件本地存储
+    "contextMenus", // 右键菜单
+    "tabs", // 监听标签(或者给tabs发送信息)
+    "scripting", // 脚本注入api
+    "tts", // tts 朗读,
+    "activeTab"
+  ],
+  "host_permissions": ["https://translate.googleapis.com/"],
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'"
+  },
+  "incognito": "split",
+  // -------------页面访问扩展资源权限-------------
+  "web_accessible_resources": [
+    {
+      "resources": ["/scripts/content.js", "/display.html", "/assets/icons/tar_logo.png"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}
